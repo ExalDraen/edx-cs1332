@@ -1,8 +1,6 @@
-package org.alnx.edx;
+package org.alnx.edx.mod5;
 
-import java.util.List;
-import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.*;
 
 /**
  * Your implementation of the pre-order, in-order, and post-order
@@ -27,7 +25,7 @@ public class Traversals<T extends Comparable<? super T>> {
      * @param root The root of a BST.
      * @return List containing the pre-order traversal of the tree.
      */
-    public List<T> preorder(TreeNode<T> root) {
+    public List<T> preorder(BSTNode<T> root) {
         if (root == null) {
             return new LinkedList<>();
         }
@@ -52,7 +50,7 @@ public class Traversals<T extends Comparable<? super T>> {
      * @param root The root of a BST.
      * @return List containing the in-order traversal of the tree.
      */
-    public List<T> inorder(TreeNode<T> root) {
+    public List<T> inorder(BSTNode<T> root) {
         if (root == null) {
             return new LinkedList<>();
         }
@@ -77,7 +75,7 @@ public class Traversals<T extends Comparable<? super T>> {
      * @param root The root of a BST.
      * @return List containing the post-order traversal of the tree.
      */
-    public List<T> postorder(TreeNode<T> root) {
+    public List<T> postorder(BSTNode<T> root) {
         if (root == null) {
             return new LinkedList<>();
         }
@@ -87,5 +85,21 @@ public class Traversals<T extends Comparable<? super T>> {
         result.addAll(postorder(root.getRight()));
         result.add(root.getData());
         return result;
+    }
+
+    List<T> levelorder(BSTNode<T> root) {
+        if (root == null) {
+            return new LinkedList<>();
+        }
+        Deque<BSTNode<T>> q = new ArrayDeque<>();
+        List<T> ret = new LinkedList<T>();
+        q.add(root);
+        while (!q.isEmpty()) {
+            BSTNode<T> curr = q.pop();
+            ret.add(curr.getData()); // for return
+            if (curr.getLeft() != null) q.add(curr.getLeft());
+            if (curr.getRight() != null) q.add(curr.getRight());
+        }
+        return ret;
     }
 }

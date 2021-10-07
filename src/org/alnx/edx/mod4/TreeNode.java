@@ -1,4 +1,4 @@
-package org.alnx.edx;
+package org.alnx.edx.mod4;
 
 /**
  * Node class used for implementing the BST.
