@@ -42,7 +42,7 @@ public class MinHeap<T extends Comparable<? super T>> {
      */
     public void add(T data) {
         if (data == null) {
-            throw new NoSuchElementException("May not add nulld ata");
+            throw new IllegalArgumentException("May not add nulld ata");
         }
         // check backing array and double, manually
         if (size == backingArray.length - 1) {
