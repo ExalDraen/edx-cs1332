@@ -20,9 +20,7 @@ public class Main {
         Traversals<Integer> trav = new Traversals<>();
         System.out.println("-------------");
         System.out.println("Size: " + (myBST.size()));
-//        System.out.println("Preorder: " + trav.preorder(myBST.getRoot()));
-//        System.out.println("Inorder: " + trav.inorder(myBST.getRoot()));
-//        System.out.println("Postorder: " + trav.postorder(myBST.getRoot()));
+
         System.out.println("Levelorder: " + trav.levelorder(myBST.getRoot()));
         System.out.println("-------------");
         myBST.remove(20);
@@ -31,9 +29,6 @@ public class Main {
         System.out.println("-------------");
         System.out.println("Size: " + (myBST.size()));
         System.out.println("Levelorder: " + trav.levelorder(myBST.getRoot()));
-//        System.out.println("Preorder: " + trav.preorder(myBST.getRoot()));
-//        System.out.println("Inorder: " + trav.inorder(myBST.getRoot()));
-//        System.out.println("Postorder: " + trav.postorder(myBST.getRoot()));
         System.out.println("-------------");
 
         test_0();
@@ -50,6 +45,11 @@ public class Main {
         System.out.println("Levelorder: " + trav.levelorder(bst.getRoot()));
         bst.remove(0);
         System.out.println("Levelorder: " + trav.levelorder(bst.getRoot()));
+        checkContains(bst, 0);
+    }
+
+    private static void checkContains(BST<Integer> bst, Integer data) {
+        System.out.println("Contains " + data + " : " + bst.contains(data));
     }
 
     public static void test_012() {
@@ -62,6 +62,8 @@ public class Main {
         System.out.println("Levelorder: " + trav.levelorder(bst.getRoot()));
         bst.remove(1);
         System.out.println("Levelorder: " + trav.levelorder(bst.getRoot()));
+        checkContains(bst, 2);
+        checkContains(bst, 1);
     }
 
     public static void test_two_children() {
@@ -74,6 +76,7 @@ public class Main {
         bst.add(4);
         bst.add(2);
         bst.add(3);
+        checkContains(bst, 4);
         System.out.println("Levelorder: " + trav.levelorder(bst.getRoot()));
         bst.remove(1);
         System.out.println("Levelorder: " + trav.levelorder(bst.getRoot()));
@@ -88,6 +91,7 @@ public class Main {
         bst.add(4);
         bst.add(3);
         bst.add(2);
+        checkContains(bst, 2);
         System.out.println("Levelorder: " + trav.levelorder(bst.getRoot()));
         bst.remove(1);
         System.out.println("Levelorder: " + trav.levelorder(bst.getRoot()));
