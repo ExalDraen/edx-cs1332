@@ -5,11 +5,23 @@ import java.util.Arrays;
 public class Main {
 
     public static void main(String[] args) {
-        MinHeap<Integer> heap = new MinHeap<>();
         test_0();
         test_012();
         test_two_children();
         test_large();
+
+        test_max_0();
+        test_two_children_max();
+    }
+
+    public static void test_max_0() {
+        MaxHeap<Integer> heap = new MaxHeap<>();
+        System.out.println("-------Test 0 -----");
+        heap.add(0);
+        System.out.println("Contents: " + Arrays.toString(heap.getBackingArray()));
+        Integer min = heap.remove();
+        System.out.println("Got back: " + min);
+        System.out.println("Contents: " + Arrays.toString(heap.getBackingArray()));
     }
 
     public static void test_0() {
@@ -36,7 +48,22 @@ public class Main {
 
     public static void test_two_children() {
         MinHeap<Integer> heap = new MinHeap<>();
-        System.out.println("-------Test 0 -----");
+        System.out.println("-------Test two children -----");
+        heap.add(1);
+        heap.add(0);
+        heap.add(3);
+        heap.add(5);
+        heap.add(4);
+        heap.add(2);
+        System.out.println("Contents: " + Arrays.toString(heap.getBackingArray()));
+        Integer min = heap.remove();
+        System.out.println("Got back: " + min);
+        System.out.println("Contents: " + Arrays.toString(heap.getBackingArray()));
+    }
+
+    public static void test_two_children_max() {
+        MaxHeap<Integer> heap = new MaxHeap<>();
+        System.out.println("-------Test two children (max) -----");
         heap.add(1);
         heap.add(0);
         heap.add(3);
