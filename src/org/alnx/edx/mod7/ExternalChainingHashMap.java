@@ -37,6 +37,39 @@ public class ExternalChainingHashMap<K, V> {
     }
 
     /**
+     * Returns whether or not the key is in the map.
+     *
+     * @param key The key to search for in the map. You may assume that the
+     *            key is never null.
+     * @return true if the key is contained within the map, false otherwise.
+     */
+    public boolean containsKey(K key) {
+        // WRITE YOUR CODE HERE (DO NOT MODIFY METHOD HEADER)!
+        if (key == null) {
+            throw new IllegalArgumentException("Key and Value must be non-nulL!");
+        }
+        // find slot for key - hash and compress
+        final int slot = getSlot(key, table.length);
+
+        if (table[slot] == null) {
+            // nothing in the slot, key not there
+            return false;
+        } else {
+            // collision case: key may or may not be in map
+            ExternalChainingMapEntry<K, V> next = table[slot];
+            while(next != null) {
+                if (next.getKey().equals(key)) {
+                    // dupe, return early
+                    return true;
+                }
+                next = next.getNext();
+            }
+        }
+        // haven't found it yet, so must be missing
+        return false;
+    }
+
+    /**
      * Adds the given key-value pair to the map. If an entry in the map
      * already has this key, replace the entry's value with the new one
      * passed in.

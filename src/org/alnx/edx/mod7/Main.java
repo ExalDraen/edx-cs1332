@@ -1,7 +1,5 @@
 package org.alnx.edx.mod7;
 
-import org.alnx.edx.mod6.MinHeap;
-
 import java.util.Arrays;
 
 public class Main {
@@ -18,6 +16,7 @@ public class Main {
         System.out.println("-------------T0------------------");
         ExternalChainingHashMap<Integer, Integer> map = new ExternalChainingHashMap<>();
         printMap(map);
+        checkContains(map, 0);
     }
     public static void test_1() {
         System.out.println("--------------T1-----------------");
@@ -41,6 +40,7 @@ public class Main {
         map.put(15, 110);
         map.put(27, 1100);
         map.put(13, 100);
+        checkContains(map, 13);
         printMap(map);
     }
 
@@ -88,9 +88,16 @@ public class Main {
         map.put(26, 1000);
         printMap(map);
         System.out.println("Removing 1, got" + map.remove(1));
+        checkContains(map, 1);
+        checkContains(map, 14);
+        checkContains(map, 27);
         System.out.println("Removing 14, got" + map.remove(14));
         System.out.println("Removing 26, got" + map.remove(26));
         printMap(map);
+    }
+
+    private static <K, V> void checkContains(ExternalChainingHashMap<K, V> map, K key) {
+        System.out.println("Contains " + key + " : " + map.containsKey(key));
     }
 
     public static <K,V> void printMap(ExternalChainingHashMap<K, V> map) {
