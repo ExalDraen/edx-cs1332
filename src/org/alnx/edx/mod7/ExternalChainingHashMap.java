@@ -70,6 +70,40 @@ public class ExternalChainingHashMap<K, V> {
     }
 
     /**
+     * Gets the value associated with the given key.
+     *
+     * @param key The key to search for in the map. You may assume that the
+     *            key is never null.
+     * @return The value associated with the given key.
+     * @throws java.util.NoSuchElementException If the key is not in the map.
+     */
+    public V get(K key) {
+        // WRITE YOUR CODE HERE (DO NOT MODIFY METHOD HEADER)!
+        if (key == null) {
+            throw new IllegalArgumentException("Cannot get null!");
+        }
+        // find slot for key - hash and compress
+        final int slot = getSlot(key, table.length);
+
+        if (table[slot] == null) {
+            // nothing in the slot, key not there
+            throw new NoSuchElementException("Key " + key + " not found!");
+        } else {
+            // collision case: key may or may not be in map
+            ExternalChainingMapEntry<K, V> next = table[slot];
+            while(next != null) {
+                if (next.getKey().equals(key)) {
+                    // found, return
+                    return next.getValue();
+                }
+                next = next.getNext();
+            }
+        }
+        // haven't found it yet, so must be missing
+        throw new NoSuchElementException("Key " + key + " not found!");
+    }
+
+    /**
      * Adds the given key-value pair to the map. If an entry in the map
      * already has this key, replace the entry's value with the new one
      * passed in.
