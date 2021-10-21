@@ -175,6 +175,7 @@ public class BST<T extends Comparable<? super T>> {
     }
 
     private BSTNode<T> rRem(BSTNode<T> current, T data, BSTNode<T> rContainer) {
+        final var SUCCESSOR = false;
         if (current == null) {
             // base case, reached null so node not found
             throw new NoSuchElementException(String.format("Data %s not found", data));
@@ -203,9 +204,13 @@ public class BST<T extends Comparable<? super T>> {
                 // 2 children
                 // temp container to store data removed by successor removal
                 BSTNode<T> tempContainer = new BSTNode<>(null);
-                // find successor and remove, then set data for current to the data
+                // Successor / predecessor removal , then set data for current to the data
                 // we removed
-                current.setRight(removeSuccessor(current.getRight(), tempContainer));
+                if (SUCCESSOR == true) {
+                    current.setRight(removeSuccessor(current.getRight(), tempContainer));
+                } else {
+                    current.setLeft(removePredecessor(current.getLeft(), tempContainer));
+                }
                 current.setData(tempContainer.getData());
             }
         }
