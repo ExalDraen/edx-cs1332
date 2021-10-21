@@ -1,7 +1,5 @@
 package org.alnx.edx.mod5;
 
-import org.alnx.edx.mod5.Traversals;
-
 public class Main {
 
     public static void main(String[] args) {
@@ -45,11 +43,14 @@ public class Main {
         System.out.println("Levelorder: " + trav.levelorder(bst.getRoot()));
         bst.remove(0);
         System.out.println("Levelorder: " + trav.levelorder(bst.getRoot()));
-        checkContains(bst, 0);
+        CheckContainsAndGet(bst, 0);
     }
 
-    private static void checkContains(BST<Integer> bst, Integer data) {
+    private static void CheckContainsAndGet(BST<Integer> bst, Integer data) {
         System.out.println("Contains " + data + " : " + bst.contains(data));
+        if (bst.contains(data)) {
+            System.out.println("Get gives: " + bst.get(data));
+        }
     }
 
     public static void test_012() {
@@ -62,8 +63,8 @@ public class Main {
         System.out.println("Levelorder: " + trav.levelorder(bst.getRoot()));
         bst.remove(1);
         System.out.println("Levelorder: " + trav.levelorder(bst.getRoot()));
-        checkContains(bst, 2);
-        checkContains(bst, 1);
+        CheckContainsAndGet(bst, 2);
+        CheckContainsAndGet(bst, 1);
     }
 
     public static void test_two_children() {
@@ -76,7 +77,7 @@ public class Main {
         bst.add(4);
         bst.add(2);
         bst.add(3);
-        checkContains(bst, 4);
+        CheckContainsAndGet(bst, 4);
         System.out.println("Levelorder: " + trav.levelorder(bst.getRoot()));
         bst.remove(1);
         System.out.println("Levelorder: " + trav.levelorder(bst.getRoot()));
@@ -91,7 +92,7 @@ public class Main {
         bst.add(4);
         bst.add(3);
         bst.add(2);
-        checkContains(bst, 2);
+        CheckContainsAndGet(bst, 2);
         System.out.println("Levelorder: " + trav.levelorder(bst.getRoot()));
         bst.remove(1);
         System.out.println("Levelorder: " + trav.levelorder(bst.getRoot()));

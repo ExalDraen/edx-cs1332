@@ -49,7 +49,43 @@ public class BST<T extends Comparable<? super T>> {
         } else {
             return rContains(current.getRight(), data);
         }
+    }
 
+    /**
+     * Returns the data from the tree matching the given parameter.
+     *
+     * This should be done recursively.
+     *
+     * Do not return the same data that was passed in. Return the data that
+     * was stored in the tree.
+     *
+     * Hint: Should you use value equality or reference equality?
+     *
+     * Must be O(log n) for best and average cases and O(n) for worst case.
+     *
+     * @param data The data to search for. You may assume data is never null.
+     * @return The data in the tree equal to the parameter.
+     * @throws java.util.NoSuchElementException If the data is not in the tree.
+     */
+    public T get(T data) {
+        // WRITE YOUR CODE HERE (DO NOT MODIFY METHOD HEADER)!
+        return rGet(root, data);
+    }
+
+    private T rGet(BSTNode<T> current, T data) {
+        // base case: null node, so data not found
+        if (current == null) {
+            throw new NoSuchElementException("Data " + data + " not found!");
+        }
+
+        // recursive calls don't need to check for null, base case handles that.
+        if (data.compareTo(current.getData()) < 0) {
+            return rGet(current.getLeft(), data);
+        } else if (data.compareTo(current.getData()) == 0) {
+            return current.getData();
+        } else {
+            return rGet(current.getRight(), data);
+        }
     }
 
     /**
