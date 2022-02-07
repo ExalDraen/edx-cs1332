@@ -10,7 +10,8 @@ public class Main {
     public static void main(String[] args) {
         test_0();
         test_1();
-
+        test_2();
+        test_3();
     }
 
     public static void test_0() {
@@ -18,40 +19,90 @@ public class Main {
         //  2
         // 3
         System.out.println("-------------T0------------------");
-        AVL<Integer> avl = new AVL<>();
+        AVLBasic<Integer> avlBasic = new AVLBasic<>();
         AVLNode<Integer> root = new AVLNode<>(3);
         AVLNode<Integer> left = new AVLNode<>(2);
         AVLNode<Integer> leftleft = new AVLNode<>(1);
         root.setLeft(left);
         left.setLeft(leftleft);
-        avl.updateHeightAndBF(leftleft);
-        avl.updateHeightAndBF(left);
-        avl.updateHeightAndBF(root);
+        avlBasic.updateHeightAndBF(leftleft);
+        avlBasic.updateHeightAndBF(left);
+        avlBasic.updateHeightAndBF(root);
         printAVL(root);
         System.out.println("------balance------");
-        final var newRoot = avl.balance(root);
+        final var newRoot = avlBasic.balance(root);
         printAVL(newRoot);
     }
 
     public static void test_1() {
         System.out.println("--------------T1-----------------");
-        AVL<Integer> avl = new AVL<>();
+        AVLBasic<Integer> avlBasic = new AVLBasic<>();
         AVLNode<Integer> root = new AVLNode<>(1);
         AVLNode<Integer> right = new AVLNode<>(3);
         AVLNode<Integer> rightleft = new AVLNode<>(2);
         root.setRight(right);
         right.setLeft(rightleft);
-        avl.updateHeightAndBF(rightleft);
-        avl.updateHeightAndBF(right);
-        avl.updateHeightAndBF(root);
+        avlBasic.updateHeightAndBF(rightleft);
+        avlBasic.updateHeightAndBF(right);
+        avlBasic.updateHeightAndBF(root);
         printAVL(root);
         System.out.println("------balance------");
-        final var newRoot = avl.balance(root);
+        final var newRoot = avlBasic.balance(root);
         printAVL(newRoot);
     }
 
+    public static void test_2() {
+        System.out.println("--------------T2-----------------");
+        final var avl = new AVL<Integer>();
+        avl.add(7);
+        avl.add(4);
+        avl.add(10);
+        avl.add(2);
+        avl.add(6);
+        avl.add(8);
+        avl.add(11);
+        avl.add(0);
+        avl.add(3);
+        avl.add(5);
+        avl.add(9);
+        avl.add(1);
+        printAVL(avl.getRoot());
+        System.out.println("------remove------");
+        avl.remove(4);
+        printAVL(avl.getRoot());
+    }
+
+    public static void test_3() {
+        System.out.println("--------------T3-----------------");
+        final var avl = new AVL<Integer>();
+        avl.add(7);
+        avl.add(4);
+        avl.add(15);
+        avl.add(1);
+        avl.add(6);
+        avl.add(10);
+        avl.add(18);
+        avl.add(0);
+        avl.add(3);
+        avl.add(5);
+        avl.add(8);
+        avl.add(13);
+        avl.add(16);
+        avl.add(19);
+        avl.add(2);
+        avl.add(9);
+        avl.add(11);
+        avl.add(14);
+        avl.add(17);
+        avl.add(12);
+        printAVL(avl.getRoot());
+        System.out.println("------remove------");
+        avl.remove(7);
+        printAVL(avl.getRoot());
+    }
+
     private static <T extends Comparable<? super T>> void printAVL(AVLNode<T> root)  {
-        AVL<T> avl = new AVL<>();
+        AVLBasic<T> avlBasic = new AVLBasic<>();
         final var elems = levelorder(root);
         final var output = elems
                 .stream()
