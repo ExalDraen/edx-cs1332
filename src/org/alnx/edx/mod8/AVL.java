@@ -54,7 +54,7 @@ public class AVL<T extends Comparable<? super T>> {
             size++;
             // don't need to update height/bf (int defaults to 0, which is correct)
             // or balance (leaf node is always balanced)
-            return new AVLNode<T>(data);
+            return new AVLNode<>(data);
         }
         if (data.compareTo(current.getData()) < 0) {
             // left side
@@ -127,7 +127,7 @@ public class AVL<T extends Comparable<? super T>> {
             size--;
             // need to actually remove it now
             if (current.getLeft() == null && current.getRight() == null) {
-                // no children. Just remove node, no need to rebalance anything
+                // no children. Just remove node; since there is no subtree, no need to rebalance anything
                 return null;
             } else if (current.getLeft() == null && current.getRight() != null) {
                 // current -> right
@@ -144,7 +144,7 @@ public class AVL<T extends Comparable<? super T>> {
                 if (SUCCESSOR == true) {
                     current.setRight(removeSuccessor(current.getRight(), tempContainer));
                 } else {
-                    current.setLeft(removePredecessor(current.getLeft(), tempContainer));
+                    current.setLeft(getPredecessor(current.getLeft(), tempContainer));
                 }
                 current.setData(tempContainer.getData());
             }
@@ -155,30 +155,32 @@ public class AVL<T extends Comparable<? super T>> {
     }
 
     /**
-     * Search until we find current node without right child, then return the left child at that point
+     * Search the subtree until we find the predecessor (the node that has the next
+     * smallest value after the node provided) and return its left child.
      *
-     * @param current root of the subtree within which we will search for node without right child
+     * @param current root of the subtree within which we will search for predecessor
      * @param tempContainer output parameter; used to return the data that was removed
-     * @return left child of node without right child
+     * @return left child of predecessor node (can be null)
      */
-    private AVLNode<T> removePredecessor(AVLNode<T> current, AVLNode<T> tempContainer) {
+    private AVLNode<T> getPredecessor(AVLNode<T> current, AVLNode<T> tempContainer) {
         if (current.getRight() == null) {
             // found predecessor, update return container and return the node
             tempContainer.setData(current.getData());
             return current.getLeft();
         } else {
             // haven't found it yet. Keep looking right.
-            current.setRight(removePredecessor(current.getRight(), tempContainer));
+            current.setRight(getPredecessor(current.getRight(), tempContainer));
             return current;
         }
     }
 
     /**
-     * Search until we find current node without left child, then return the right child at that point
+     * Search the subtree until we find the successor (the node that has the next
+     * largest value after the node provided) and return its right child.
      *
-     * @param current root of the subtree within which we will search for node without left child
+     * @param current root of the subtree within which we will search for successor
      * @param tempContainer output parameter; used to return the data that was removed
-     * @return right child of node without left child
+     * @return right child of successor node (can be null)
      */
     private AVLNode<T> removeSuccessor(AVLNode<T> current, AVLNode<T> tempContainer) {
         if (current.getLeft() == null) {
@@ -251,15 +253,20 @@ public class AVL<T extends Comparable<? super T>> {
         // Conceptual shape
         // A (current)
         //  B
-        //   C
+        // C D
         // Store B
         final var tmpRight = currentNode.getRight();
 
         // Set A's right to B's left
+        // A B
+        //  C D
         // right heavy so getRight() aka B should not be null
         currentNode.setRight(currentNode.getRight().getLeft());
 
         // Set B's left to the current node (A)
+        //   B
+        //  A D
+        //   C
         tmpRight.setLeft(currentNode);
 
         // update, starting at the bottom
@@ -296,15 +303,20 @@ public class AVL<T extends Comparable<? super T>> {
         // Conceptual shape
         //   A (current)
         //  B
-        // C
+        // C D
         // Store B
         final var tmpLeft = currentNode.getLeft();
 
         // Set A's left to B's right
+        //   B A
+        //  C D
         // left heavy so getLeft() aka B should not be null
         currentNode.setLeft(currentNode.getLeft().getRight());
 
         // Set B's right to the current node (A)
+        //   B
+        //  C A
+        //   D
         tmpLeft.setRight(currentNode);
 
         // update, starting at the bottom
@@ -363,7 +375,6 @@ public class AVL<T extends Comparable<? super T>> {
      * @return The root of the tree.
      */
     public AVLNode<T> getRoot() {
-        // DO NOT MODIFY THIS METHOD!
         return root;
     }
 
@@ -376,7 +387,6 @@ public class AVL<T extends Comparable<? super T>> {
      * @return The size of the tree.
      */
     public int size() {
-        // DO NOT MODIFY THIS METHOD!
         return size;
     }
 }
