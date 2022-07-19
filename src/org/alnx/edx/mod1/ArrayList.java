@@ -67,6 +67,29 @@ public class ArrayList<T> {
     }
 
     /**
+     * Adds the data to the specified index.
+     *
+     * Must be O(1) for index size and O(n) for all other cases.
+     *
+     * ASSUMPTIONS:
+     * - You may assume that the backingArray will not need to be resized.
+     * - You may assume that the index is valid [0, size].
+     * - You may assume that the data will never be null.
+     *
+     * @param index the index at which to add the new data
+     * @param data  the data to add at the specified index
+     */
+    public void addAtIndex(int index, T data) {
+
+        // copy the subrange [index,size) forward to make room for data at index
+        for (int i = size - 1;i >= index;i--) {
+            backingArray[i+1] = backingArray[i];
+        }
+        backingArray[index] = data;
+        size++;
+    }
+
+    /**
      * Adds the data to the back of the list.
      * <p>
      * Method should run in amortized O(1) time.

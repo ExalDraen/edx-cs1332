@@ -75,6 +75,58 @@ public class SinglyLinkedList<T> {
     }
 
     /**
+     * Adds the element to the specified index.
+     *
+     * Must be O(1) for indices 0 and size and O(n) for all other cases.
+     *
+     * ASSUMPTIONS:
+     * - You may assume that the index will always be valid [0, size]
+     * - You may assume that the data will not be null
+     *
+     * @param index the index to add the new element
+     * @param data  the data to add
+     */
+    public void addAtIndex(int index, T data) {
+        if (data == null) {
+            throw new IllegalArgumentException("Can't add null data!");
+        }
+        if (index < 0 || index > size) {
+            throw new IllegalArgumentException("Can't add null data!");
+        }
+        SinglyLinkedListNode<T> newNode = new SinglyLinkedListNode<>(data);
+        // special case: size is 0
+        if (size == 0) {
+            head = tail = newNode;
+            size++;
+            return;
+        }
+        // special case: adding at end
+        if (index == size) {
+            tail.setNext(newNode);
+            tail = newNode;
+            size++;
+            return;
+        }
+        // special case: adding at head
+        if (index == 0) {
+            newNode.setNext(head);
+            head = newNode;
+            size++;
+            return;
+        }
+
+        // normal case: traverse index-1 times
+        // then insert new node after that
+        var current = head;
+        for (int i=0;i<index -1;i++) {
+            current = current.getNext();
+        }
+        newNode.setNext(current.getNext());
+        current.setNext(newNode);
+        size++;
+    }
+
+    /**
      * Removes and returns the first data of the list.
      * <p>
      * Method should run in O(1) time.

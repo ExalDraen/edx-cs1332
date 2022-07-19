@@ -10,6 +10,16 @@ public class Main {
         test_3();
         test_4();
         test_5();
+        test_add_at_index();
+    }
+
+    private static void test_add_at_index() {
+        System.out.println("-----------------------------------");
+        var arr = new SinglyLinkedList<String>();
+        arr.addToBack("1");
+        arr.addToBack("2");
+        arr.addAtIndex(2, "30");
+        printLinkedList(arr);
     }
 
     private static void test_5() {
